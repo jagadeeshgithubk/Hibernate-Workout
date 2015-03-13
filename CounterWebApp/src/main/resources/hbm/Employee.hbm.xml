@@ -9,7 +9,7 @@
          This class contains the employee detail. 
       </meta>
       <id name="ID" type="int" column="ID">
-         <generator class="native"/>
+         <generator class="increment"/>
       </id>
       <property name="NAME" column="NAME" type="java.lang.String"/>
       <property name="ADDRESS" column="ADDRESS" type="java.lang.String"/>

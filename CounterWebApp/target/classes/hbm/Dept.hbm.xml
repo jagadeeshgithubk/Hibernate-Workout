@@ -9,11 +9,10 @@
 			This class contains the employee detail.
 		</meta>
 		<id name="DEPTID" type="int" column="DEPTID">
-			<generator class="native" />
+			<generator class="increment" />
 		</id>
-		<property name="DEPT_ID" column="DEPT_ID" type="java.lang.Integer" />
 		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
-		<set name="empList" inverse="true">
+		<set name="empList" cascade="all" inverse="true">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>

@@ -6,7 +6,6 @@ import java.util.Set;
 public class Department {
 	
 	Integer DEPTID;
-	Integer DEPT_ID;
 	String DEPT_NAME;
 	Set<Employee> empList;
 	
@@ -21,12 +20,6 @@ public class Department {
 	}
 	public void setDEPTID(Integer dEPTID) {
 		DEPTID = dEPTID;
-	}
-	public Integer getDEPT_ID() {
-		return DEPT_ID;
-	}
-	public void setDEPT_ID(Integer dEPT_ID) {
-		DEPT_ID = dEPT_ID;
 	}
 	public String getDEPT_NAME() {
 		return DEPT_NAME;
