@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="hbmpojos.Department" table="DEPARTMENT">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="DEPTID" type="int" column="DEPTID">
+			<generator class="native" />
+		</id>
+		<property name="DEPT_ID" column="DEPT_ID" type="java.lang.Integer" />
+		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
+		<set name="empList" inverse="true">
+		<!-- foreign key in Employee table  -->
+			<key column="DEPT_ID"/>
+				<one-to-many class="hbmpojos.Employee"/>
+		</set>
+	</class>
+</hibernate-mapping>

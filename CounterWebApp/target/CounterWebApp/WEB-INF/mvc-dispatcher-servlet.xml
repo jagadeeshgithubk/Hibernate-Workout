@@ -1,0 +1,77 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+        ">
+
+	<context:component-scan base-package="com.test.controller" />
+
+	<aop:aspectj-autoproxy />
+ 
+    <tx:annotation-driven proxy-target-class="true"
+        transaction-manager="transactionManager" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="testChild1" class="com.test.controller.ChilldClassForScopeObject"
+		abstract="true">
+		<property name="lastName1" value="value of last name1"></property>
+		<property name="lastName2" value="value of last name2"></property>
+	</bean>
+
+	<bean id="testChild3" class="com.test.controller.ChilldClassForScopeObject"
+		parent="testChild1">
+		<property name="lastName3" value="value of last name3"></property>
+		<property name="lastName1" value="updated test1"></property>
+		<property name="lastName2" value="updated test2"></property>
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+<!--  <value>jdbc:oracle:thin:@B-F13-ITSSI.Yelladworks.in:1521:XE"</value> -->		
+		<value>jdbc:oracle:thin:@localhost:1521:xe</value>
+		</property>
+		<property name="username">
+			<value>test</value>
+		</property>
+		<property name="password">
+			<value>nopassword</value>
+		</property>
+	</bean>
+
+	<bean id="testService" class="com.test.controller.TestServiceImpl" >
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="testService2" class="com.test.controller.TestServiceImpl">
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>
