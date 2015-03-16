@@ -5,12 +5,14 @@ public class Employee {
 	Integer ID;
 	String NAME;
 	String ADDRESS;
-	Integer DEPT_ID;
-	public Integer getDEPT_ID() {
-		return DEPT_ID;
+	Department department;
+	
+	
+	public Department getDepartment() {
+		return department;
 	}
-	public void setDEPT_ID(Integer dEPT_ID) {
-		DEPT_ID = dEPT_ID;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 	public Integer getID() {
 		return ID;
@@ -35,7 +37,6 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ADDRESS == null) ? 0 : ADDRESS.hashCode());
-		result = prime * result + ((DEPT_ID == null) ? 0 : DEPT_ID.hashCode());
 		result = prime * result + ((NAME == null) ? 0 : NAME.hashCode());
 		return result;
 	}
@@ -52,11 +53,6 @@ public class Employee {
 			if (other.ADDRESS != null)
 				return false;
 		} else if (!ADDRESS.equalsIgnoreCase(other.ADDRESS))
-			return false;
-		if (DEPT_ID == null) {
-			if (other.DEPT_ID != null)
-				return false;
-		} else if (!DEPT_ID.equals(other.DEPT_ID))
 			return false;
 		if (NAME == null) {
 			if (other.NAME != null)

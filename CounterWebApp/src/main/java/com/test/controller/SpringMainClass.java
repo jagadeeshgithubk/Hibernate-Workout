@@ -40,21 +40,24 @@ public class SpringMainClass {
         
         openSession.save(department);
 */        
-        
-        Department department = new Department();
-//        department.setDEPTID(301);
+
+//        Department department = new Department();
+        Department department = (Department)openSession.get(Department.class,256);
+//        department.setDEPTID(254);
         department.setDEPT_NAME("test manual insert");
         LinkedHashSet<Employee> empList = new LinkedHashSet<Employee>();
         
         Employee e = new Employee();
-//        e.setID(123);
+//        e.setID(256);
+//        e.setDEPT_ID(256);
         e.setADDRESS("manual address");
         e.setNAME("man");
+        e.setDepartment(department);
 		empList.add(e);
 		department.setEmpList(empList);
+//		openSession.save(department);
 		
-		openSession.save(department);
-//		openSession.save(e);
+		openSession.save(e);
         openSession.getTransaction().commit();
         
         TestEnumInjector bean2 = (TestEnumInjector)context.getBean("testInjection");

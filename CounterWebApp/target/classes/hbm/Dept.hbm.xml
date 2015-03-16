@@ -12,7 +12,7 @@
 			<generator class="increment" />
 		</id>
 		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
-		<set name="empList" cascade="all" inverse="true">
+		<set name="empList" inverse="false" cascade="all">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>
