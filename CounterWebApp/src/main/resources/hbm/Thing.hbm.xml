@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="hbmpojos.Thing" table="THINGS_TABLE">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="thingId" type="int" column="THING_ID">
+			<generator class="increment" />
+		</id>
+		<property name="thingName" column="THING_NAME" type="java.lang.String" />
+		<set name="persons" table="PERSON_THINGS" cascade="all">
+			<key column="THING_ID"/>
+			<many-to-many class="hbmpojos.Person" column="PERSON_ID"/>
+		</set>
+	
+	</class>
+</hibernate-mapping>
