@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.classic.Session;
 import org.omg.CORBA.INV_FLAG;
 import org.springframework.context.ApplicationContext;
@@ -30,12 +31,11 @@ public class SpringMainClass {
         openSession.beginTransaction();
         
 //		fetching data
-//CRUDutil.fetchDetails(openSession);
+//		CRUDutil.fetchDetails(openSession);
 
 //        Save or update
 //        CRUDutil.saveOrUpdate(openSession);
-        
-		Department department = (Department)openSession.get(Department.class,256);
+        Department department = (Department)openSession.get(Department.class,227);
 		Set<Employee> empList = department.getEmpList();
 		for (Employee employee : empList) {
 			System.out.println(employee);
