@@ -12,11 +12,25 @@
 			<generator class="increment" />
 		</id>
 		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
-		<set name="empList" table="Employee" inverse="false" cascade="all">
+<!-- 		
+		inverse:
+			default - inverse=false: parent is relationship owner - extra update query by parent to update children.	
+				inverse=true:  child is relationship owner - no extra update query.
+		cascade:
+			default:no cascade
+			save-update : saves/updates related children when parent is saved.
+			delete : deletes children
+			delete-orphan : 		
+		fetch:
+			default : select.
+					join : Dept 'left outter join' Emp.
+					subselect :  		
+ -->		
+ 
+ 		<set name="empList" inverse="false" cascade="delete-orphan" fetch="subselect">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>
 		</set>
-	
 	</class>
 </hibernate-mapping>
