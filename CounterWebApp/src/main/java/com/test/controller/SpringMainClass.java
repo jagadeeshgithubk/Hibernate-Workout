@@ -1,21 +1,14 @@
 package com.test.controller;
 
-import hbmpojos.Department;
-import hbmpojos.Employee;
+import hbmpojos.Person;
+import hbmpojos.Thing;
 
-import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
-import org.omg.CORBA.INV_FLAG;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -33,15 +26,22 @@ public class SpringMainClass {
 //CRUDutil.fetchDetails(openSession);
 
 //        Save or update
-//        CRUDutil.saveOrUpdate(openSession);
+        for(int i=0;i<1;i++){
+        	CRUDutil.saveOrUpdate(openSession);
+        }
         
-		Department department = (Department)openSession.get(Department.class,256);
-		Set<Employee> empList = department.getEmpList();
-		for (Employee employee : empList) {
-			System.out.println(employee);
-		}
-		
-		
+        Person person = new Person();
+        person.setName("test1");
+        Set<Thing> linkedHashSet = new LinkedHashSet<Thing>();
+        Thing thing1 = new Thing();
+        thing1.setThingName("thing1");
+        Thing thing2 = new Thing();
+        thing2.setThingName("thing2");
+        linkedHashSet.add(thing1);
+        linkedHashSet.add(thing2);
+		person.setThings(linkedHashSet);
+
+		openSession.save(person);
         openSession.getTransaction().commit();
         
         
