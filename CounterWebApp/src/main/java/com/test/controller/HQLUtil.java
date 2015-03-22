@@ -25,7 +25,9 @@ public class HQLUtil {
 
 	private static void positionalAndNamedParameter(Session openSession) {
 		Query createQuery = openSession.createQuery("from Employee e where e.ADDRESS=?");
+		// Positional parameters
         createQuery.setParameter(0, "manual address");
+        // Named parameters
 //        createQuery.setParameter("test1", 6);
         List<Employee> list = createQuery.list();
         for (Employee employee : list) {
