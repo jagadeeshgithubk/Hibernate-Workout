@@ -2,6 +2,8 @@ package com.test.controller;
 
 import hbmpojos.Department;
 import hbmpojos.Employee;
+import hbmpojos.Person;
+import hbmpojos.Thing;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -22,9 +24,37 @@ public class CRUDutil {
 //			System.out.println(employee.getADDRESS());
 		}
 	}
+
+	public static void manyToMany_Person_To_Things(Session openSession) {
+		Person person = new Person();
+		person.setName("name1");
+		Set<Thing> linkedHashSet = new LinkedHashSet<Thing>();
+		Thing thing1 = new Thing();
+		thing1.setThingName("shirt");
+		Thing thing2 = new Thing();
+		thing2.setThingName("shirt");
+		linkedHashSet.add(thing1);
+		linkedHashSet.add(thing2);
+		person.setThings(linkedHashSet);
+		openSession.save(person);
+	}
+
+	public static void manyToMany_Things_To_Person(Session openSession) {
+		Thing thing = new Thing();
+		thing.setThingName("shirt");
+		Set<Person> linkedHashSet = new LinkedHashSet<Person>();
+		Person person1 = new Person();
+		person1.setName("name1");
+		Person person2 = new Person();
+		person2.setName("name2");
+		linkedHashSet.add(person1);
+		linkedHashSet.add(person2);
+		thing.setPersons(linkedHashSet);
+		
+		openSession.save(thing);
+	}
+
 	
-
-
 	public static void saveOrUpdate(Session openSession) {
 		Department department = (Department)openSession.get(Department.class,256);
 //        department.setDEPTID(254);

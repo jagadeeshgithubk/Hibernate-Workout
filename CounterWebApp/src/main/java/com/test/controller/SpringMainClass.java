@@ -1,22 +1,15 @@
 package com.test.controller;
 
-import hbmpojos.Department;
-import hbmpojos.Employee;
+import hbmpojos.Person;
+import hbmpojos.Thing;
 
-import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.classic.Session;
-import org.omg.CORBA.INV_FLAG;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -35,17 +28,15 @@ public class SpringMainClass {
 
 //        Save or update
 //        CRUDutil.saveOrUpdate(openSession);
-        Department department = (Department)openSession.get(Department.class,227);
-		Set<Employee> empList = department.getEmpList();
-		for (Employee employee : empList) {
-			System.out.println(employee);
-		}
-		
-		
-        openSession.getTransaction().commit();
+
+//        CRUDutil.manyToMany_Things_To_Person(openSession);
+        CRUDutil.manyToMany_Person_To_Things(openSession);
+        
+               openSession.getTransaction().commit();
         
         
 	}
+	
 
 }
 
