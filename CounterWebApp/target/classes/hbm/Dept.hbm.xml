@@ -27,7 +27,7 @@
 					subselect :  		
  -->		
  
- 		<set name="empList" inverse="false" cascade="delete" fetch="subselect">
+ 		<set name="empList" inverse="false" cascade="delete-orphan" fetch="subselect">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>
