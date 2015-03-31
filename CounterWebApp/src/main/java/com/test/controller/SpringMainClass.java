@@ -5,10 +5,10 @@ import hbmpojos.Thing;
 
 import java.text.ParseException;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.classic.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,16 +27,35 @@ public class SpringMainClass {
 //		CRUDutil.fetchDetails(openSession);
 
 //        Save or update
-//        CRUDutil.saveOrUpdate(openSession);
 
-//        CRUDutil.manyToMany_Things_To_Person(openSession);
-        CRUDutil.manyToMany_Person_To_Things(openSession);
+        for(int i=0;i<1;i++){
+        	CRUDutil.saveOrUpdate(openSession);
+        }
         
-               openSession.getTransaction().commit();
+        Person person = new Person();
+        person.setName("test1");
+        Set<Thing> linkedHashSet = new LinkedHashSet<Thing>();
+        Thing thing1 = new Thing();
+        thing1.setThingName("thing1");
+        Thing thing2 = new Thing();
+        thing2.setThingName("thing2");
+        linkedHashSet.add(thing1);
+        linkedHashSet.add(thing2);
+		person.setThings(linkedHashSet);
+
+		openSession.save(person);
+//        CRUDutil.saveOrUpdate(openSession);
+        Department department = (Department)openSession.get(Department.class,227);
+		Set<Employee> empList = department.getEmpList();
+		for (Employee employee : empList) {
+			System.out.println(employee);
+		}
+		
+		
+        openSession.getTransaction().commit();
         
         
 	}
-	
 
 }
 
