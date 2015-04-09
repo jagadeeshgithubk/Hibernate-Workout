@@ -139,4 +139,8 @@
  -->			</props>
 		</property>
 	</bean>
+	
+	<bean id="testDao" class="com.test.dao.TestDaoImpl">
+	<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
 </beans>

@@ -1,10 +1,13 @@
 package com.test.controller;
 
+import hbmpojos.Department;
+import hbmpojos.Employee;
 import hbmpojos.Person;
 import hbmpojos.Thing;
 
 import java.text.ParseException;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.SessionFactory;
@@ -12,6 +15,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.classic.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.test.dao.TestDao;
 
 public class SpringMainClass {
 
@@ -21,29 +26,35 @@ public class SpringMainClass {
         ParentClassForScopeObject bean = (ParentClassForScopeObject)context.getBean(ParentClassForScopeObject.class);
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");
         Session openSession = sessionFactory.openSession();
-        openSession.beginTransaction();
+        TestDao testDao = (TestDao)context.getBean("testDao");
+        List<Employee> fetchData = testDao.fetchData();
+        for (Employee employee : fetchData) {
+			System.out.println(employee);
+		}
+//        testDao.saveOrUpdate();
+ /*       openSession.beginTransaction();
         
 //		fetching data
 //		CRUDutil.fetchDetails(openSession);
 
 //        Save or update
 
-        for(int i=0;i<1;i++){
+        for(int i=0;i<5;i++){
         	CRUDutil.saveOrUpdate(openSession);
         }
         
         Person person = new Person();
-        person.setName("test1");
+        person.setName("test11");
         Set<Thing> linkedHashSet = new LinkedHashSet<Thing>();
         Thing thing1 = new Thing();
         thing1.setThingName("thing1");
         Thing thing2 = new Thing();
-        thing2.setThingName("thing2");
+        thing2.setThingName("thing22");
         linkedHashSet.add(thing1);
         linkedHashSet.add(thing2);
 		person.setThings(linkedHashSet);
 
-		openSession.save(person);
+//		openSession.save(null);
 //        CRUDutil.saveOrUpdate(openSession);
         Department department = (Department)openSession.get(Department.class,227);
 		Set<Employee> empList = department.getEmpList();
@@ -52,7 +63,7 @@ public class SpringMainClass {
 		}
 		
 		
-        openSession.getTransaction().commit();
+        openSession.getTransaction().commit();*/
         
         
 	}

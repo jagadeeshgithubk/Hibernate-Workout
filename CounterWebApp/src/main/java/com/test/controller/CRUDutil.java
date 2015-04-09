@@ -56,8 +56,8 @@ public class CRUDutil {
 
 	
 	public static void saveOrUpdate(Session openSession) {
-		Department department = (Department)openSession.get(Department.class,1);
-//		Department department = new Department();
+//		Department department = (Department)openSession.get(Department.class,1);
+		Department department = new Department();
 
 //        department.setDEPTID(254);
         department.setDEPT_NAME("test manual insert");
