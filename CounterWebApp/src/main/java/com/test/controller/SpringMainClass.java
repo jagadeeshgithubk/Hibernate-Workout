@@ -6,6 +6,7 @@ import hbmpojos.Person;
 import hbmpojos.Thing;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,9 +28,19 @@ public class SpringMainClass {
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");
         Session openSession = sessionFactory.openSession();
         TestDao testDao = (TestDao)context.getBean("testDao");
-        List<Employee> fetchData = testDao.fetchData();
-        for (Employee employee : fetchData) {
-			System.out.println(employee);
+        
+/*        Department directSessionObj = (Department)openSession.get(Department.class, 1);
+        List<Department> fetchData = Arrays.asList(directSessionObj);
+        System.out.println();
+*/        
+        List<?> fetchData = testDao.fetchData();
+        System.out.println(fetchData.size());
+        
+        for (Object object : fetchData) {
+        	Department dept = (Department)object;
+        	Set<Employee> empList = dept.getEmpList();
+        	System.out.println(empList);
+			System.out.println(object);
 		}
 //        testDao.saveOrUpdate();
  /*       openSession.beginTransaction();

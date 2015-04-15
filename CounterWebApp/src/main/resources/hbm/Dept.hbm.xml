@@ -23,11 +23,12 @@
 			delete-orphan : 		
 		fetch:
 			default : select.
-					join : Dept 'left outter join' Emp.
-					subselect :  		
+					join : Dept 'left inner join' Emp.
+					subselect :Select * from Dept; select * from Emp where dept_id in(select dept_id from Dept)
+					select:select * from Dept; select * from Emp where    		
  -->		
  
- 		<set name="empList" inverse="false" cascade="all" fetch="subselect">
+ 		<set name="empList" inverse="false" cascade="all" fetch="join" batch-size="3" lazy="false">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>

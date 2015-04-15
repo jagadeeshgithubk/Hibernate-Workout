@@ -1,11 +1,12 @@
 package com.test.dao;
 
+import hbmpojos.Department;
 import hbmpojos.Employee;
 
 import java.util.List;
 
 public interface TestDao {
 
-	List<Employee> fetchData();
+	List<?> fetchData();
 	void saveOrUpdate();
 }

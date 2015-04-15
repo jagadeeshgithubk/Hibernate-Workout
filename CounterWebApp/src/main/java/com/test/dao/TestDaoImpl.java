@@ -10,7 +10,13 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanConstructorResultTransformer;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -21,14 +27,22 @@ public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 {
 
 	@Override
-	public List<Employee> fetchData() {
-		List<Employee> executeFind = (List<Employee>)getHibernateTemplate().executeFind(new HibernateCallback<List<Employee>>() {
+	public List<?> fetchData() {
+		List<?> executeFind = (List<?>)getHibernateTemplate().executeFind(new HibernateCallback<List<?>>() {
 
 			@Override
-			public List<Employee> doInHibernate(Session session)
+			public List<?> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Criteria createCriteria = session.createCriteria(Employee.class);
-				return (List<Employee>)createCriteria.list();
+				Criteria createCriteria = session.createCriteria(Department.class,"dept");
+//				Criteria createCriteria = session.createCriteria(Department.class,"dept").createAlias("dept.empList", "empList");
+/*				ProjectionList projectionList = Projections.projectionList();
+				projectionList.add(Projections.property("dept.DEPTID"));
+				projectionList.add(Projections.property("empList.ID"));
+				projectionList.add(Projections.property("empList.NAME"));
+				createCriteria.setProjection(projectionList);
+*/				
+//				createCriteria.add(Restrictions.eq("DEPTID", 1));
+				return (List<?>) createCriteria.list();
 			}
 		});
 		return executeFind;
