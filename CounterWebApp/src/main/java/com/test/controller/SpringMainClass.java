@@ -5,6 +5,7 @@ import hbmpojos.Employee;
 import hbmpojos.Person;
 import hbmpojos.Thing;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -27,22 +28,34 @@ public class SpringMainClass {
         ParentClassForScopeObject bean = (ParentClassForScopeObject)context.getBean(ParentClassForScopeObject.class);
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");
         Session openSession = sessionFactory.openSession();
-        TestDao testDao = (TestDao)context.getBean("testDao");
+        
+//        TestDao testDao = (TestDao)context.getBean("testDao");
+        
+        TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
+        List<?> fetchDataJpa = testDaoJpa.fetchData();
+        System.out.println(".......");
+        
+        
+        AutowireModes autowireModes = (AutowireModes) context.getBean("testAutowireModes");
+        System.out.println(".........."+autowireModes.getChilldClassForScopeObject());
         
 /*        Department directSessionObj = (Department)openSession.get(Department.class, 1);
         List<Department> fetchData = Arrays.asList(directSessionObj);
         System.out.println();
 */        
-        List<?> fetchData = testDao.fetchData();
+/*        List<?> fetchData = testDao.fetchData();
         System.out.println(fetchData.size());
-        
-        for (Object object : fetchData) {
+*/        
+/*        for (Object object : fetchData) {
         	Department dept = (Department)object;
         	Set<Employee> empList = dept.getEmpList();
         	System.out.println(empList);
 			System.out.println(object);
 		}
-//        testDao.saveOrUpdate();
+*/
+        
+        
+//                testDao.saveOrUpdate();
  /*       openSession.beginTransaction();
         
 //		fetching data
@@ -77,6 +90,11 @@ public class SpringMainClass {
         openSession.getTransaction().commit();*/
         
         
+	}
+
+	private static void Array(int i, int j, int k) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

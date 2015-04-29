@@ -100,6 +100,7 @@ System.out.println("......"+method.getName());
 		Class<? extends Object> classs = Single.class;
 		
 		System.out.println("........"+classs.isAssignableFrom(Object.class));
+	
 
 	}
 	

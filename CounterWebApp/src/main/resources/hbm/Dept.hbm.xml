@@ -28,7 +28,7 @@
 					select:select * from Dept; select * from Emp where    		
  -->		
  
- 		<set name="empList" inverse="false" cascade="all" fetch="join" batch-size="3" lazy="false">
+ 		<set name="empList" inverse="true" cascade="all" fetch="select" lazy="false">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>

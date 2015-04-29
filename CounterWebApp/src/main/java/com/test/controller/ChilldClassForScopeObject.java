@@ -1,8 +1,10 @@
 package com.test.controller;
 
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
-public class ChilldClassForScopeObject {
+public class ChilldClassForScopeObject implements InitializingBean,DisposableBean {
 	
 	private String lastName1;
 	private String lastName2;
@@ -26,5 +28,20 @@ public class ChilldClassForScopeObject {
 	public void setLastName3(String lastName3) {
 		this.lastName3 = lastName3;
 	}
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println(".....After properties set.....");
+	}
+	@Override
+	public void destroy() throws Exception {
+		System.out.println(".....destroy.........");
+	}
+
+	public void springInit(){
+		System.out.println("....spring init....");
+	}
 	
+	public void springDestroy(){
+		System.out.println(".....spring destroy....");
+	}
 }

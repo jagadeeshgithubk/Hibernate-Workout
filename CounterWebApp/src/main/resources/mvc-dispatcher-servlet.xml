@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
-        ">
+        " default-lazy-init="false">
 
 	<context:component-scan base-package="com.test.controller" />
 
@@ -36,13 +36,12 @@
 		<property name="lastName2" value="value of last name2"></property>
 	</bean>
 
-	<bean id="testChild3" class="com.test.controller.ChilldClassForScopeObject"
-		parent="testChild1">
+<bean id="testChild3" class="com.test.controller.ChilldClassForScopeObject"
+		parent="testChild1" init-method="springInit" destroy-method="springDestroy">
 		<property name="lastName3" value="value of last name3"></property>
 		<property name="lastName1" value="updated test1"></property>
 		<property name="lastName2" value="updated test2"></property>
 	</bean>
-
 	<bean id="testChild4" class="com.test.controller.ChilldClassForScopeObject"
 		parent="testChild1">
 		<property name="lastName3" value="value of last name4"></property>
@@ -96,6 +95,13 @@
 			</set>
 		</property>
 	</bean>
+	
+	<bean id="testAutowireModes" class="com.test.controller.AutowireModes">
+<!-- 	<constructor-arg index="0" ref="testChild3"> 
+	</constructor-arg>
+ --><!-- 	<property name="chilldClassForScopeObject" ref="testChild4"></property>
+ -->	</bean>
+	
 
 	<bean id="testInjection" class="com.test.controller.TestEnumInjector">
 		<constructor-arg index="0" type="java.util.Map">
@@ -112,7 +118,7 @@
 	</bean>
 
 	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" autowire="default">
 		<property name="location">
 			<value>classpath:testproperties.properties</value>
 		</property>
@@ -143,4 +149,33 @@
 	<bean id="testDao" class="com.test.dao.TestDaoImpl">
 	<property name="sessionFactory" ref="mySessionFactory"/>
 	</bean>
+	
+	
+	<!-- JPA Entity Manager configuration -->
+		<bean id="mediaEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="packagesToScan" value="com.jpa.entities" />
+		<property name="dataSource" ref="dataSource"/>
+
+<!-- 		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.OracleDialect" />
+				<property name="showSql" value='true' />
+			</bean>
+		</property>
+ -->		<property name="jpaProperties">
+			<!-- set extra properties here, e.g. for Hibernate: -->
+			<props>
+				<!--  We disabled the Validation for temporary (if change Company_id data type in Sic table)  -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">${db.media.hibernate.hbm2ddl.auto}</prop> -->
+				
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+                <!-- Added to mask bean relational constraint validation error -->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="testDaoJpa" class="com.test.dao.JpaTestDaoImpl"/>
+	
 </beans>
