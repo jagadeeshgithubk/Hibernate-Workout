@@ -5,7 +5,9 @@ import hbmpojos.Employee;
 import hbmpojos.Person;
 import hbmpojos.Thing;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -18,12 +20,31 @@ import org.hibernate.classic.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.test.controller.MyAnnotation.WrittenTime;
 import com.test.dao.TestDao;
 
 public class SpringMainClass {
 
+
+
+	@MyAnnotation(value="test",writtenTime=WrittenTime.DEFAULT_DATE)
 	public static void main(String args[]) throws ParseException{
-		
+		Class<?> class1 = SpringMainClass.class;
+		Method[] methods = class1.getMethods();
+		for (Method method : methods) {
+			boolean annotationPresent = method.isAnnotationPresent(MyAnnotation.class);
+			if(annotationPresent){
+				Annotation[] annotations = method.getAnnotations();
+				for (Annotation annotation : annotations) {
+					if(annotation instanceof MyAnnotation){
+						System.out.println("dfsd............");
+					}
+				}
+				
+			}
+				
+			System.out.println("....."+annotationPresent);
+		}
         ApplicationContext context = new ClassPathXmlApplicationContext("mvc-dispatcher-servlet.xml");
         ParentClassForScopeObject bean = (ParentClassForScopeObject)context.getBean(ParentClassForScopeObject.class);
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");

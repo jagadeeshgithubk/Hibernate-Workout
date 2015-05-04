@@ -157,13 +157,13 @@
 		<property name="packagesToScan" value="com.jpa.entities" />
 		<property name="dataSource" ref="dataSource"/>
 
-<!-- 		<property name="jpaVendorAdapter">
+ 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="databasePlatform" value="org.hibernate.dialect.OracleDialect" />
 				<property name="showSql" value='true' />
 			</bean>
 		</property>
- -->		<property name="jpaProperties">
+ 		<property name="jpaProperties">
 			<!-- set extra properties here, e.g. for Hibernate: -->
 			<props>
 				<!--  We disabled the Validation for temporary (if change Company_id data type in Sic table)  -->
