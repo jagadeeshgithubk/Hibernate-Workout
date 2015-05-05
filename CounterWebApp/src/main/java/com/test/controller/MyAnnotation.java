@@ -24,5 +24,5 @@ public @interface MyAnnotation {
 		}
 	}
 	
-	String value();
+	String valueTtest();
 }

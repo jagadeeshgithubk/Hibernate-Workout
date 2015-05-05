@@ -27,7 +27,7 @@ public class SpringMainClass {
 
 
 
-	@MyAnnotation(value="test",writtenTime=WrittenTime.DEFAULT_DATE)
+	@MyAnnotation(writtenTime=WrittenTime.DEFAULT_DATE, valueTtest = "ertew")
 	public static void main(String args[]) throws ParseException{
 		Class<?> class1 = SpringMainClass.class;
 		Method[] methods = class1.getMethods();
