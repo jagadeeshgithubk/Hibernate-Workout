@@ -15,12 +15,22 @@ import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 {
 
+	@Autowired
+	PlatformTransactionManager platformTransactionManager;
+	
 	@Override
 	public List<?> fetchData() {
 		List<?> executeFind = (List<?>)getHibernateTemplate().executeFind(new HibernateCallback<List<?>>() {
@@ -66,18 +76,45 @@ public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 		return executeFind;
 	}
 
+
+//Transactions: 
+		
+//Declarative: transactions by default uses transaction manager defined in the configuration. 
+//	The only conditions is that the defined bean should have the id as 'transactionManager'
+//	@Transactional
+	
+//Programmatic: 
+	
 	@Override
 	public void saveOrUpdate() {
-		Department entity = new Department();
-		entity.setDEPT_NAME("hibernate ado");
-		LinkedHashSet<Employee> empList = new LinkedHashSet<Employee>();
-		Employee e = new Employee();
-		e.setDepartment(entity);
-		e.setNAME("test");
-		empList.add(e);
-		entity.setEmpList(empList);
-		getHibernateTemplate().save(entity);
-		throw new RuntimeException();
+		//Sets the transaction attributes.
+		TransactionDefinition definition = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
+		//Gets the Transaction status which will be used later by commit and rollback methods.
+		TransactionStatus transaction = platformTransactionManager.getTransaction(definition);
+		try{
+			Department entity = new Department();
+			entity.setDEPT_NAME("hibernate ado");
+			LinkedHashSet<Employee> empList = new LinkedHashSet<Employee>();
+			Employee e = new Employee();
+			e.setDepartment(entity);
+			e.setNAME("test");
+			
+			empList.add(e);
+			entity.setEmpList(empList);
+			getHibernateTemplate().save(entity);
+			if(0<1)
+				throw new RuntimeException();
+			else{
+				platformTransactionManager.commit(transaction);
+			}
+				
+		}
+		catch(Exception e){
+			System.out.println("caught it");
+			platformTransactionManager.rollback(transaction);
+//			throw new RuntimeException();
+			
+		}
 	}
 
 }
