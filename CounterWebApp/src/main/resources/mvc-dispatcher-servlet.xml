@@ -17,8 +17,7 @@
 
 	<aop:aspectj-autoproxy />
 
-	<tx:annotation-driven proxy-target-class="true"
-		transaction-manager="transactionManager" />
+	<tx:annotation-driven proxy-target-class="true"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -174,6 +173,11 @@
                 <!-- Added to mask bean relational constraint validation error -->
 			</props>
 		</property>
+	</bean>
+	
+	<!-- JPA transaction Manager -->
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="mediaEntityManagerFactory"/>
 	</bean>
 	
 	<bean id="testDaoJpa" class="com.test.dao.JpaTestDaoImpl"/>

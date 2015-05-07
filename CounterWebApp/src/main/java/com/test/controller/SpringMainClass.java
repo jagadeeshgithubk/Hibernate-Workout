@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -28,11 +29,13 @@ import com.test.dao.TestDao;
 public class SpringMainClass {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
         final ApplicationContext context = new ClassPathXmlApplicationContext("mvc-dispatcher-servlet.xml");
 		AutowireModes modes = (AutowireModes)context.getBean("testAutowireModes");
-		System.out.println("..............."+modes.getChilldClassForScopeObject().getLastName1());
-
+		TestService testService = (TestService)context.getBean("testService");
+		Integer executeQuery = testService.executeQuery("1");
+		TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
+		testDaoJpa.saveOrUpdate();
 	}
 
 	@MyAnnotation(writtenTime=WrittenTime.DEFAULT_DATE, valueTtest = "ertew")
@@ -55,17 +58,13 @@ public class SpringMainClass {
 		}
         final ApplicationContext context = new ClassPathXmlApplicationContext("mvc-dispatcher-servlet.xml");
         
-        ChilldClassForScopeObject child = (ChilldClassForScopeObject)context.getBean("testChild3");
-        System.out.println(child.getLastName2());
-        
-        ChilldClassForScopeObject child2 = (ChilldClassForScopeObject)context.getBean("testChild4");
-        System.out.println(child2.getLastName2());
-       /* 
+       
         ParentClassForScopeObject bean = (ParentClassForScopeObject)context.getBean(ParentClassForScopeObject.class);
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");
         Session openSession = sessionFactory.openSession();
         
         TestDao testDao = (TestDao)context.getBean("testDao");
+//        testDao.saveOrUpdate();
         
         TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
 //        List<?> fetchDataJpa = testDaoJpa.fetchData();
@@ -74,7 +73,7 @@ public class SpringMainClass {
         
         
         AutowireModes autowireModes = (AutowireModes) context.getBean("testAutowireModes");
-        System.out.println(".........."+autowireModes.getChilldClassForScopeObject());*/
+        System.out.println(".........."+autowireModes.getChilldClassForScopeObject());
         
 /*        Department directSessionObj = (Department)openSession.get(Department.class, 1);
         List<Department> fetchData = Arrays.asList(directSessionObj);

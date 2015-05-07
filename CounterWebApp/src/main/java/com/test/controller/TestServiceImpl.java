@@ -17,19 +17,11 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 public class TestServiceImpl extends JdbcDaoSupport implements TestService{
 	
-/*	@Autowired
-	PlatformTransactionManager transactionManager;
-*/	
-	@Transactional(readOnly=false,rollbackFor=SQLException.class,isolation=Isolation.READ_COMMITTED)
+	@Transactional(value="jpaTransactionManager",readOnly=false,rollbackFor=SQLException.class)
 	@Override
 	public Integer executeQuery(String name) throws SQLException {
 		
 		
-//		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition(DefaultTransactionDefinition.PROPAGATION_REQUIRES_NEW);
-		
-/*		TransactionStatus transaction = transactionManager.getTransaction(
-				defaultTransactionDefinition);
-*/		
 		JdbcTemplate jdbcTemplate = getJdbcTemplate();
 		
 		jdbcTemplate.query("select * from Employee", new RowCallbackHandler() {
@@ -42,22 +34,6 @@ public class TestServiceImpl extends JdbcDaoSupport implements TestService{
 			}
 		});
 		
-		int update = jdbcTemplate.update("insert into Employee values("+Integer.parseInt(name)+",'ap2','test90')");
-		System.out.println("updated........."+update);
-
-		
-//		jdbcTemplate.update("insert into Employee values("+Integer.parseInt(name)+",'ap2','test90')");
-
-		SQLException exception = new SQLException();
-		 try {
-			 if(true){
-				 throw exception;
-			 }
-//			 transactionManager.commit(transaction);
-			 
-		} catch (SQLException e) {
-			throw e;
-		}
 		return null;
 	}
 }

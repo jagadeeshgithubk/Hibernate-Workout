@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -28,7 +30,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 {
 
-	@Autowired
+	@Resource(name="transactionManager")
 	PlatformTransactionManager platformTransactionManager;
 	
 	@Override
@@ -102,7 +104,7 @@ public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 			empList.add(e);
 			entity.setEmpList(empList);
 			getHibernateTemplate().save(entity);
-			if(0<1)
+			if(1<1)
 				throw new RuntimeException();
 			else{
 				platformTransactionManager.commit(transaction);
