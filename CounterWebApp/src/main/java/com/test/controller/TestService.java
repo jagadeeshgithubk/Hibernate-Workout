@@ -4,5 +4,9 @@ import java.sql.SQLException;
 
 public interface TestService {
 
-	public Integer executeQuery(String name) throws SQLException;
+	Integer executeQuery(String name) throws SQLException;
+	
+	interface TestServiceChild{
+		void childMethod();
+	}
 }

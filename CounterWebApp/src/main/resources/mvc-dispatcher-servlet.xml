@@ -29,7 +29,7 @@
 		</property>
 	</bean>
 
-	<bean id="testChild1" class="com.test.controller.ChilldClassForScopeObject"
+	<bean id="testChild1" class="com.test.controller.ChilldClassForScopeObject" 
 		abstract="true">
 		<property name="lastName1" value="value of last name1"></property>
 		<property name="lastName2" value="value of last name2"></property>

@@ -16,11 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 public class TestServiceImpl extends JdbcDaoSupport implements TestService{
-	
-	@Transactional(value="jpaTransactionManager",readOnly=false,rollbackFor=SQLException.class)
+
 	@Override
 	public Integer executeQuery(String name) throws SQLException {
 		
+		return null;
+	}/*
+	
+	@Transactional(value="jpaTransactionManager",readOnly=false,rollbackFor=SQLException.class,rollbackForClassName={"test"})
+	@Override
+	public Integer executeQuery(String name) throws SQLException {
 		
 		JdbcTemplate jdbcTemplate = getJdbcTemplate();
 		
@@ -34,6 +39,8 @@ public class TestServiceImpl extends JdbcDaoSupport implements TestService{
 			}
 		});
 		
-		return null;
+		return 120;
 	}
-}
+	
+	
+*/}

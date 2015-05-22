@@ -9,7 +9,11 @@
 			This class contains the employee detail.
 		</meta>
 		<id name="DEPTID" type="int" column="DEPTID">
-			<generator class="increment" />
+<!-- 			<generator class="increment" />
+ -->			<generator class="native" >
+      <param name="dfsdfsd">s_tasks</param>
+ 
+ </generator>
 		</id>
 		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
 <!-- 		

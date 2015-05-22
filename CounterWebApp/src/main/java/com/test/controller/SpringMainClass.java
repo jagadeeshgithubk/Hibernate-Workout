@@ -13,9 +13,13 @@ import java.lang.reflect.Proxy;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Cascade;
@@ -29,18 +33,19 @@ import com.test.dao.TestDao;
 public class SpringMainClass {
 
 
-	public static void main(String[] args) throws SQLException {
+	public static void main1(String[] args) throws SQLException {
         final ApplicationContext context = new ClassPathXmlApplicationContext("mvc-dispatcher-servlet.xml");
 		AutowireModes modes = (AutowireModes)context.getBean("testAutowireModes");
 		TestService testService = (TestService)context.getBean("testService");
 		Integer executeQuery = testService.executeQuery("1");
-		TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
+		System.out.println(executeQuery);
+/*		TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
 		testDaoJpa.saveOrUpdate();
-	}
+*/	}
 
 	@MyAnnotation(writtenTime=WrittenTime.DEFAULT_DATE, valueTtest = "ertew")
-	public static void main1(String args[]) throws ParseException{
-		Class<?> class1 = SpringMainClass.class;
+	public static void main(String args[]) throws ParseException{
+	/*	Class<?> class1 = SpringMainClass.class;
 		Method[] methods = class1.getMethods();
 		for (Method method : methods) {
 			boolean annotationPresent = method.isAnnotationPresent(MyAnnotation.class);
@@ -55,7 +60,7 @@ public class SpringMainClass {
 			}
 				
 			System.out.println("....."+annotationPresent);
-		}
+		}*/
         final ApplicationContext context = new ClassPathXmlApplicationContext("mvc-dispatcher-servlet.xml");
         
        
@@ -63,9 +68,23 @@ public class SpringMainClass {
         SessionFactory sessionFactory = (SessionFactory)context.getBean("mySessionFactory");
         Session openSession = sessionFactory.openSession();
         
-        TestDao testDao = (TestDao)context.getBean("testDao");
+/*        Department object = (Department)openSession.get(Department.class, 1);
+        openSession.close();
+*///        Department nergeDep = new Department();
+//        object.setDEPT_NAME("***.. updated...."+new Date());
+        Session openSession2 = sessionFactory.openSession();
+//        Department object4 = (Department)openSession2.get(Department.class, 1);
+        Department object2 = new Department();
+        object2.setDEPTID(1);
+//        Department object3 = new Department();
+//        object2.setDEPTID(909);
+        object2.setDEPT_NAME("***.. updated...."+new Date());
+		openSession2.merge(object2);
+        openSession2.flush();
+        openSession2.close();
+/*        TestDao testDao = (TestDao)context.getBean("testDao");
 //        testDao.saveOrUpdate();
-        
+        r
         TestDao testDaoJpa = (TestDao)context.getBean("testDaoJpa");
 //        List<?> fetchDataJpa = testDaoJpa.fetchData();
         testDao.saveOrUpdate();
@@ -74,7 +93,7 @@ public class SpringMainClass {
         
         AutowireModes autowireModes = (AutowireModes) context.getBean("testAutowireModes");
         System.out.println(".........."+autowireModes.getChilldClassForScopeObject());
-        
+*/        
 /*        Department directSessionObj = (Department)openSession.get(Department.class, 1);
         List<Department> fetchData = Arrays.asList(directSessionObj);
         System.out.println();
@@ -122,7 +141,7 @@ public class SpringMainClass {
 			System.out.println(employee);
 		}
         openSession.getTransaction().commit();*/
-        
+        /*
         TestDao newProxyInstance = (TestDao)Proxy.newProxyInstance(TestDao.class.getClassLoader(), new Class[]{TestDao.class}, new InvocationHandler() {
 			
 			@Override
@@ -135,7 +154,7 @@ public class SpringMainClass {
 				return null;
 			}
 		});
-        newProxyInstance.fetchData();
+        newProxyInstance.fetchData();*/
 	}
 
 	
