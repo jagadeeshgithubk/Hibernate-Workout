@@ -41,6 +41,7 @@ public class BaseController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
+		
 		scopeObject.setName("..........test..........");
 		model.addAttribute("message", "...");
 		model.addAttribute("counter", ++counter);

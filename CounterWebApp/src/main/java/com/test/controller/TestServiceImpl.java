@@ -18,6 +18,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 public class TestServiceImpl extends JdbcDaoSupport implements TestService{
 
 	@Override
+	@Transactional
 	public Integer executeQuery(String name) throws SQLException {
 		
 		return null;

@@ -1,14 +1,18 @@
 package com.test.controller;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-public class ChilldClassForScopeObject implements InitializingBean,DisposableBean {
+public class ChilldClassForScopeObject implements InitializingBean,DisposableBean,ApplicationContextAware {
 	
 	private String lastName1;
 	private String lastName2;
 	private String lastName3;
+	private ApplicationContext applicationContext;
 	
 	public String getLastName1() {
 		return lastName1;
@@ -44,4 +48,11 @@ public class ChilldClassForScopeObject implements InitializingBean,DisposableBea
 	public void springDestroy(){
 		System.out.println(".....spring destroy....");
 	}
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 }
+
+

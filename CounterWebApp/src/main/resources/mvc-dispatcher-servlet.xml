@@ -18,7 +18,7 @@
 	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven proxy-target-class="true"/>
-
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -28,6 +28,8 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+	
+	
 
 	<bean id="testChild1" class="com.test.controller.ChilldClassForScopeObject" 
 		abstract="true">
@@ -35,17 +37,15 @@
 		<property name="lastName2" value="value of last name2"></property>
 	</bean>
 
-<bean id="testChild3" class="com.test.controller.ChilldClassForScopeObject"
-		parent="testChild1" init-method="springInit" destroy-method="springDestroy">
-		<property name="lastName3" value="value of last name3"></property>
-		<property name="lastName1" value="updated test1"></property>
-		<property name="lastName2" value="updated test2"></property>
-	</bean>
 	<bean id="testChild4" class="com.test.controller.ChilldClassForScopeObject"
 		parent="testChild1">
 		<property name="lastName3" value="value of last name4"></property>
 		<property name="lastName1" value="updated test4"></property>
 		<property name="lastName2" value="updated test4"></property>
+	</bean>
+<bean id="testChild3" class="com.test.controller.ChilldClassForScopeObject"
+		parent="testChild1" init-method="springInit" destroy-method="springDestroy">
+		<property name="lastName3" value="value of last name3"></property>
 	</bean>
 
 	<bean id="dataSource"
@@ -75,7 +75,7 @@
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource" /> 
 	</bean>
 
 	<bean id="parentClassForScopeObject" class="com.test.controller.ParentClassForScopeObject">
@@ -95,11 +95,11 @@
 		</property>
 	</bean>
 	
-	<bean id="testAutowireModes" class="com.test.controller.AutowireModes">
-<!-- 	<constructor-arg index="0" ref="testChild3"> 
-	</constructor-arg>
- --><!-- 	<property name="chilldClassForScopeObject" ref="testChild4"></property>
- -->	</bean>
+	<bean id="testAutowireModes" class="com.test.controller.AutowireModes" autowire="byName">
+	<!-- <constructor-arg index="0" ref="testChild4"> 
+	</constructor-arg> -->
+   <!-- 	<property name="chilldClassForScopeObject" ref="testChild4"></property> -->
+ 	</bean>
 	
 
 	<bean id="testInjection" class="com.test.controller.TestEnumInjector">
@@ -137,11 +137,12 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
+			<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-<!-- 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
- -->			</props>
+<!--   				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+ -->  			</props>
 		</property>
 	</bean>
 	
@@ -181,5 +182,13 @@
 	</bean>
 	
 	<bean id="testDaoJpa" class="com.test.dao.JpaTestDaoImpl"/>
+	
+	
+	<bean id="a" class="com.interview.questions.A">
+	<property name="b" ref="b"/>
+	</bean>
+	<bean id="b" class="com.interview.questions.B">
+		<property name="a" ref="a"/>
+	</bean>
 	
 </beans>

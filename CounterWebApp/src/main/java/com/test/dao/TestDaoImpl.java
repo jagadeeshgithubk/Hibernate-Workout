@@ -23,6 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -35,12 +36,16 @@ public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 	
 	@Override
 	public List<?> fetchData() {
+
+		
+		
 		List<?> executeFind = (List<?>)getHibernateTemplate().executeFind(new HibernateCallback<List<?>>() {
 
 			@Override
 			public List<?> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-//				Criteria createCriteria = session.createCriteria(Department.class,"dept");
+				
+				Criteria createCriteria = session.createCriteria(Department.class,"dept");
 				
 //				Criteria createCriteria = session.createCriteria(Department.class,"dept").createAlias("dept.empList", "empList");
 /*				ProjectionList projectionList = Projections.projectionList();
@@ -87,6 +92,7 @@ public class TestDaoImpl extends HibernateDaoSupport implements TestDao
 	
 //Programmatic: 
 	
+//	@Transactional
 	@Override
 	public void saveOrUpdate() {
 		//Sets the transaction attributes.

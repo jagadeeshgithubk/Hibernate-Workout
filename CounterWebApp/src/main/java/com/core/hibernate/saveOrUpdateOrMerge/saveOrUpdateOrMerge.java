@@ -14,6 +14,8 @@ import org.hibernate.classic.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+
+
 public class saveOrUpdateOrMerge {
 	public static void main(String[] args) {
 		System.out.println("main started here :: ");
@@ -55,15 +57,16 @@ public class saveOrUpdateOrMerge {
 
 		// DOC: merge, works exactly as like saveOrUpdate, except it returns
 		// saved object
-		// openSession.merge(department);
+		 openSession.merge(department);
 
 		// DOC: update, 
-		Object load = openSession.load(Department.class, 68);
+/*		Object load = openSession.load(Department.class, 68);
 		System.out.println(load);
-//		openSession.update(department);
+*///		openSession.update(department);
 
 		// System.out.println(save);
-		openSession.flush();
+		 openSession.flush();
+		 
 	}
 
 }

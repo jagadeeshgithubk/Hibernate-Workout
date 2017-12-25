@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import hbmpojos.Department;
 import hbmpojos.Employee;
@@ -76,7 +77,7 @@ public class HibernateMain {
 		
 		ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
 	
-		
+		ThreadPoolExecutor threadPoolExecutor = null;
 	}
 
 }

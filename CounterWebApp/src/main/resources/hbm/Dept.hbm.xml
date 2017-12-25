@@ -9,11 +9,11 @@
 			This class contains the employee detail.
 		</meta>
 		<id name="DEPTID" type="int" column="DEPTID">
-<!-- 			<generator class="increment" />
- -->			<generator class="native" >
+ 			<generator class="increment" />
+ <!-- 			<generator class="native" >
       <param name="dfsdfsd">s_tasks</param>
  
- </generator>
+ </generator> -->
 		</id>
 		<property name="DEPT_NAME" column="DEPT_NAME" type="java.lang.String" />
 <!-- 		
@@ -31,8 +31,8 @@
 					subselect :Select * from Dept; select * from Emp where dept_id in(select dept_id from Dept)
 					select:select * from Dept; select * from Emp where    		
  -->		
- 
- 		<set name="empList" inverse="true" cascade="all" fetch="select" lazy="false">
+
+ 		<set name="empList" inverse="false" cascade="all" fetch="join" lazy="true">
 		<!-- foreign key in Employee table  -->
 			<key column="DEPT_ID"/>
 				<one-to-many class="hbmpojos.Employee"/>
