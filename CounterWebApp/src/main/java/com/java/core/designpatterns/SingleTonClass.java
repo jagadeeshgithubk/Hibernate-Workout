@@ -1,11 +1,13 @@
 package com.java.core.designpatterns;
 
+import java.util.Collections;
+
 public class SingleTonClass {
 
 	private static SingleTonClass single = null;
 
 	private SingleTonClass() {
-
+		
 	}
 
 	public static SingleTonClass getSingleTon() {

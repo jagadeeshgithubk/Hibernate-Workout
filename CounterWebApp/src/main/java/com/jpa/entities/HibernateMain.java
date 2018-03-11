@@ -75,9 +75,6 @@ public class HibernateMain {
 		// System.out.println(save);
 //		openSession.flush();
 		
-		ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
-	
-		ThreadPoolExecutor threadPoolExecutor = null;
 	}
 
 }

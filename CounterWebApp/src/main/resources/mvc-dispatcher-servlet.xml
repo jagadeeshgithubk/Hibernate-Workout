@@ -141,8 +141,8 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-<!--   				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
- -->  			</props>
+<!--    				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+ --> 			</props>
 		</property>
 	</bean>
 	
@@ -188,7 +188,7 @@
 	<property name="b" ref="b"/>
 	</bean>
 	<bean id="b" class="com.interview.questions.B">
-		<property name="a" ref="a"/>
+	<constructor-arg index="0" ref="a"/>
 	</bean>
 	
 </beans>

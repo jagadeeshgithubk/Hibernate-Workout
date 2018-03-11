@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class ThreadMainClass {
 
@@ -19,7 +20,7 @@ public class ThreadMainClass {
 		Integer integer = new Integer(9);
 		System.out.println(integer);
 		try{
-			Collections.sort(test, new Comparator<Integer>() {
+			Collections.sort(null, new Comparator<Integer>() {
 				@Override
 				public int compare(Integer o1, Integer o2) {
 					return 0;
@@ -28,15 +29,7 @@ public class ThreadMainClass {
 		}
 		catch(Exception e){
 			
-		}
-		catch(SQLException | IOException | RuntimeException e){
-			
-		}
-/*		final MonitorCaller monitorCaller = new MonitorCaller();
-			for(int i=0;i<10;i++){
-				new Thread(new LocalThread(monitorCaller)).start();
-		}
-*/	
+		}	
 	
 	}
 }
@@ -63,7 +56,7 @@ class A {
 }
 
 class B extends A{
-	public void test() throws Arithimetic{
+	public void test(){
 		
 	}
 }

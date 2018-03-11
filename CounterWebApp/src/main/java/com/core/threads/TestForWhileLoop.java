@@ -1,14 +1,9 @@
 package com.core.threads;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
-
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
 
 public class TestForWhileLoop {
 	

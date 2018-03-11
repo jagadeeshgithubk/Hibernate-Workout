@@ -9,13 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.id.uuid.CustomVersionOneStrategy;
-import org.springframework.beans.factory.config.CustomEditorConfigurer;
-
-import com.sun.xml.internal.ws.api.pipe.NextAction;
-
 class CustomMap<K, V> {
 
+	
+	
+	
 	
 	static Integer capacity = 5;
 	Entry<K, V>[] table = new Entry[capacity];
@@ -109,7 +107,29 @@ class CustomMap<K, V> {
 }
 
 public class CustomHashMapImpl {
-	public static void main(String args[]) {
+	
+	
+	public static int Cuckoo_Sequence(int input1){
+		int output1=0;
+		if(input1<3){
+			throw new UnsupportedOperationException("COCO");
+		}
+		int decrement=input1-2;
+		for(int i=1;i<input1;i++){
+			output1+=i*decrement;
+			decrement = decrement-1;
+		}
+		return output1+3*1;
+	}
+	public static void main(String args[]){		
+		String srt= "";
+		System.out.println(srt.isEmpty());
+		System.out.println(Cuckoo_Sequence(4));
+//		throw new UnsupportedOperationException("COCO");
+	}
+	
+	
+	public static void main2(String args[]) {
 		CustomMap<Integer, Integer> customMap = new CustomMap<>();
 		customMap.put(6, 123);
 		customMap.put(11, 223);
